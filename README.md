@@ -1,2 +1,1 @@
-# ecommerce-vue-directive
-ecommerce directive version
+# e-commerce

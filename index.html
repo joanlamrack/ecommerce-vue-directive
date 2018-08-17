@@ -7,9 +7,11 @@
 
 	<link rel="stylesheet" href="./lib/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./lib/css/cover.css">
+	<link rel="stylesheet" href="./lib/css/sweet.alert.min.css">
 
 	<script src="./lib/js/jquery-3.3.1.min.js"></script>
 	<script src="./lib/js/vue.js"></script>
+
 	<title>Akhir Bulan: belanja, makan-makan dan masih banyak lagi!</title>
 </head>
 
@@ -50,7 +52,7 @@
 						<ul class="nav flex-column">
 							<div v-if="cart.length > 0">
 								<li class="nav-item" v-for="cartA in cart.slice(0,5)">
-									<a class="nav-link active" href="#">{{cartA.itemName}}</a>
+									<a class="nav-link active" href="#">{{cartA.item.itemName}}</a>
 								</li>
 							</div>
 							<li class="nav-item" v-else>
@@ -71,11 +73,45 @@
 								</button>
 							</div>
 							<div class="modal-body">
-								...
+								<div v-if="cart.length > 0">
+									<table class="table">
+										<thead>
+											<tr>
+												<th scope="col">Nama Item</th>
+												<th scope="col">Jumlah</th>
+												<th scope="col">Total</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr v-for="cartA in cart">
+												<td>{{cartA.item.itemName}}</td>
+												<td>{{cartA.jumlah}}</td>
+												<td>{{ priceFormater(cartA.item.price * cartA.jumlah) }}</td>
+											</tr>
+											<tr>
+												<td></td>
+												<td>Total : </td>
+												<td>{{ priceFormater(getTotalInCart()) }}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="nav-item" v-else>
+									<a class="nav-link active" href="#">Kamu Belum Belanja!</a>
+								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-primary" style="background-color: #2bbcba; border: none">Save changes</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+								<button v-if="cart.length > 0" @click="clearCart" data-dismiss="modal" type="button" class="btn btn-primary" onclick="swal(
+									'Beres!',
+									'Jangan Lupa bayar yah!',
+									'success'
+								  )" style="background-color: #2bbcba; border: none">Bayar</button>
+								<button button v-else data-dismiss="modal" type="button" class="btn btn-primary" onclick="swal(
+										'Eh?',
+										'Kamu Belum Belanja loh!',
+										'question'
+									  )" style="background-color: #2bbcba; border: none"> Bayar</button>
 							</div>
 						</div>
 					</div>
@@ -179,7 +215,7 @@
 									{{ priceFormater(item.price) }}
 								</a>
 								<br>
-								<a class="availblity">{{ item.availibility }}</a>
+								<a class="availblity">{{ availablity(item.stock) }}</a>
 
 							</p>
 
@@ -198,11 +234,11 @@
 		</footer>
 	</div>
 
-
-
-	<script src="./lib/js/popper.min.js"></script>
-	<script src="./lib/js/bootstrap.min.js"></script>
 </body>
+<script src="./lib/js/sweet.alert.min.js"></script>
+<script src="./lib/js/popper.min.js"></script>
+<script src="./lib/js/bootstrap.min.js"></script>
 <script src="./lib/js/vueapp.js"></script>
+
 
 </html>
