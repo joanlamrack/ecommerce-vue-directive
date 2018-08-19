@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="./lib/css/cover.css">
 	<link rel="stylesheet" href="./lib/css/sweet.alert.min.css">
 
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="./lib/js/jquery-3.3.1.min.js"></script>
 	<script src="./lib/js/vue.js"></script>
 
@@ -52,7 +53,7 @@
 						<ul class="nav flex-column">
 							<div v-if="cart.length > 0">
 								<li class="nav-item" v-for="cartA in cart.slice(0,5)">
-									<a class="nav-link active" href="#">{{cartA.item.itemName}}</a>
+									<a class="nav-link active" href="#">{{cartA.item.name}}</a>
 								</li>
 							</div>
 							<li class="nav-item" v-else>
@@ -84,7 +85,7 @@
 										</thead>
 										<tbody>
 											<tr v-for="cartA in cart">
-												<td>{{cartA.item.itemName}}</td>
+												<td>{{cartA.item.name}}</td>
 												<td>{{cartA.jumlah}}</td>
 												<td>{{ priceFormater(cartA.item.price * cartA.jumlah) }}</td>
 											</tr>
@@ -202,12 +203,12 @@
 				</div>
 				<div class="row sellItems">
 
-					<div class="items card col-lg-2 col-md-4" v-for="(item, index) in productCats.itemList">
+					<div class="items card col-lg-2 col-md-4" v-for="(item, index) in productCats.itemlist">
 
-						<img class="card-img-top centered-and-cropped" v-bind:src="item.imgurl" v-bind:alt="item.itemName">
+						<img class="card-img-top centered-and-cropped" v-bind:src="item.imgurl" v-bind:alt="item.name">
 						<div class="card-body">
 							<p class="card-text">
-								<a class="itemName">{{ item.itemName }}</a>
+								<a class="name">{{ item.name }}</a>
 								<br>
 								<a class="store">{{ item.store }}</a>
 								<br>
